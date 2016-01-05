@@ -1,3 +1,3 @@
 #Beep beep
 
-Sample twitter clone built in rails.
+Sample twitter clone built with ruby on rails.
