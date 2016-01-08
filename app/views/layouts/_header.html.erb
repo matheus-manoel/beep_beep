@@ -1,11 +1,12 @@
 <header class="navbar navbar-fixed-top navbar-inverse" id="header">	
 
   <div class="container">
-    <%= link_to("Beep Beep", "#", id: "logo") %>
+    <%= link_to("Beep Beep", root_path, id: "logo") %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to("Home", "#") %></li>
-        <li><%= link_to("Help", "#") %></li>
+        <li><%= link_to("Home", root_path) %></li>
+        <li><%= link_to("About", about_path) %></li>
+        <li><%= link_to("Help", help_path) %></li>
         <li><%= link_to("Log in", "#") %></li>
       </ul>
     </nav>
