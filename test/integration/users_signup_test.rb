@@ -23,6 +23,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!                # post_via_redirect would work as well.
     assert_template "users/show"
+    assert is_logged_in?
   end
 
 end
