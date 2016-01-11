@@ -67,4 +67,8 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?, "user with password with length 5 is being accepted"
   end
 
+  test "authenticated? should return  false for a user with nil digest" do
+    assert_not @user.authenticated?('')
+  end
+
 end
