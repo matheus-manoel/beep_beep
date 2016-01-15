@@ -6,4 +6,21 @@ exemplo:
 exemplo2:
   name: Exemplo2
   email: exemplo2@exemplo.com
+  password_digest: <%= User.digest("password") %> 
+
+exemplo3:
+  name: Exemplo3
+  email: exemplo3@exemplo.com
+  password_digest: <%= User.digest("password") %>
+
+exemplo4:
+  name: Exemplo4
+  email: exemplo4@exemplo.com
   password_digest: <%= User.digest("password") %>  
+
+<% 30.times do |n| %>
+user_<%= n %>:
+  name: <%= "Exemplo#{n+5}" %>
+  email: <%= "exemplo#{n+5}" %>
+  password_digest: <%= User.digest("password") %>    
+<% end %>
