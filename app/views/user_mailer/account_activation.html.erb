@@ -1,5 +1,8 @@
-<h1>UserMailer#account_activation</h1>
+<h1>Beep Beep | Account activation</h1>
 
 <p>
-  <%= @greeting %>, find me in app/views/user_mailer/account_activation.html.erb
+Welcome to Beep Beep! Click on the link below to activate your account:
 </p>
+
+
+<%= link_to "Activate",edit_account_activation_url(@user.activation_token, email: @user.email) %>

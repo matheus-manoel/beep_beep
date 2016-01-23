@@ -1,3 +1,7 @@
-UserMailer#account_activation
+Beep Beep | Account activation
 
-<%= @greeting %>, find me in app/views/user_mailer/account_activation.text.erb
+Hi <%= @user.name %>,
+
+Welcome to Beep Beep! Click on the link below to activate your account:
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>

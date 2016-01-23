@@ -34,9 +34,21 @@ class User < ActiveRecord::Base
   end
 
   # Returns true if the given token matches the digest.
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token)
+    digest = self.send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  # Activates an account
+  def activate
+    self.update_attribute(:activated,    true)
+    self.update_attribute(:activated_at, Time.zone.now)  
+  end
+
+  # Sends activation email
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now    
   end
 
   private
@@ -46,7 +58,7 @@ class User < ActiveRecord::Base
       self.email = email.downcase
     end
 
-    #Creates and assigns the activation token and digest.
+    # Creates and assigns the activation token and digest.
     def create_activation_digest
       self.activation_token = User.new_token
       self.activation_digest = User.digest(activation_token)
