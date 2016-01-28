@@ -1,5 +1,7 @@
 class PasswordResetsController < ApplicationController
   before_action :get_user, only: [:edit, :update]
+  before_action :valid_user, only: [:edit, :update]
+  before_action :check_expiration, only: [:edit, :update]
 
   def new
   end
@@ -21,12 +23,8 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    if @user.password_reset_expired?
-      flash[:danger] = "Password reset has expired."
-      redirect_to new_password_reset_url
-    elsif (params[:user][:password].blank? ||
-        params[:user][:password_confirmation].blank?)
-      flash.now[:danger] = "Password/confirmation can't be blank."
+    if password_blanks?
+      flash.now[:danger] = "Password can't be blank."
       render 'edit'
     elsif @user.update_attributes(user_params)
       log_in(@user)
@@ -43,11 +41,28 @@ class PasswordResetsController < ApplicationController
       params.require(:user).permit(:password, :password_confirmation)
     end
 
+    # Returns true if password or confirmation is blank.
+    def password_blanks?
+      params[:user][:password].blank?
+    end
+
     def get_user
       @user = User.find_by(email: params[:email])
-      unless (@user && !@user.activated? &&
-              @user.authenticated?(:reset, params[:id]))
+    end
+
+    # Confirms a valid user.
+    def valid_user
+      unless (@user && @user.activated? &&
+        @user.authenticated?(:reset, params[:id]))
         redirect_to root_url
+      end
+    end
+
+    # Checks expiration of reset token.
+    def check_expiration
+      if @user.password_reset_expired?
+        flash[:danger] = "Password reset has expired."
+        redirect_to new_password_reset_url
       end
     end
 
