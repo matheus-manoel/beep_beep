@@ -1,9 +1,15 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+orange:
+  content: "Eating some oranges 10 minutes ago!"
+  created_at: <%= 10.minutes.ago %>
 
-one:
-  content: MyText
-  user_id: 
+exemplo:
+  content: "Exemplo de micropost 3 years ago!"
+  created_at: <%= 3.years.ago %>
 
-two:
-  content: MyText
-  user_id: 
+google:
+  content: "olha esse site http://google.com"
+  created_at: <%= 2.hours.ago %>
+
+most_recent:
+  content: "This is the most recent micropost !"
+  created_at: <%= Time.zone.now %>
