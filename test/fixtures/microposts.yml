@@ -1,15 +1,26 @@
 orange:
   content: "Eating some oranges 10 minutes ago!"
   created_at: <%= 10.minutes.ago %>
-
+  user: exemplo 
+  
 exemplo:
   content: "Exemplo de micropost 3 years ago!"
   created_at: <%= 3.years.ago %>
+  user: exemplo 
 
 google:
   content: "olha esse site http://google.com"
   created_at: <%= 2.hours.ago %>
+  user: exemplo 
 
 most_recent:
   content: "This is the most recent micropost !"
   created_at: <%= Time.zone.now %>
+  user: exemplo 
+
+<% 30.times do |n| %>
+micropost_<%= n %>:
+  content: <%= Faker::Lorem.sentence(5) %>
+  created_at: <%= 42.days.ago %>
+  user: exemplo 
+<% end %>
